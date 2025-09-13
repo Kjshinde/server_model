@@ -1,0 +1,8 @@
+Parameter,Value
+Max_cores,4
+Max_freq,2000
+Switch_cap,18.0
+edp,200
+tdp,100
+Load_point,0.7
+Tj_max,100
