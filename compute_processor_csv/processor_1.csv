@@ -1,6 +1,6 @@
 Parameter,Value
 Max_cores,4
-Max_freq,2000
+Max_freq,2000e6
 Switch_cap,18.0
 edp,200
 tdp,100
