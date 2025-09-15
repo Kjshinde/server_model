@@ -1,8 +1,0 @@
-Parameter,Value
-Max_cores,64
-Max_freq,2500e6
-Switch_cap,31.1
-edp,765
-tdp,350
-Load_point,0.7
-Tj_max,100
