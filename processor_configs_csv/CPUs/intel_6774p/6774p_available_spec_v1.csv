@@ -1,0 +1,9 @@
+Parameter,Value
+Tj_max,100
+TDP,500
+HD_cores,120
+Max_freq,2.1e9
+TURBO_freq,3.9e9
+VCC_core,1.5
+TEMP_case,80
+HD_threads,240
