@@ -41,7 +41,8 @@ methods(Static)
                 'ACT_pwr_split';
                 'EDP';
                 'LKG_pwr_scaling';
-                'Switching_cap'
+                'Switching_cap';
+                'T_ambient'
             };
             
             % Get current values from the mask

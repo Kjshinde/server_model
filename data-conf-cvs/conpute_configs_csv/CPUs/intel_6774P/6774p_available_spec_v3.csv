@@ -2,6 +2,6 @@ Parameter,Value
 Tj_max,100
 TDP,350
 HD_cores,64
-Max_freq,2.5*10^9
+Max_freq,2.5e9
 VCC_core,1.5
 TEMP_case,81

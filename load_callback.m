@@ -12,7 +12,8 @@ classdef load_callback
     paramNames = {
         'Init_core'; 'Init_uti'; 'Init_inst'; ...
         'Comp_core'; 'Comp_uti'; 'Comp_inst'; ...
-        'Result_core'; 'Result_uti'; 'Result_inst'
+        'Result_core'; 'Result_uti'; 'Result_inst';...
+        'Main_inst_scale'
     };
     
     % Get current values from the mask

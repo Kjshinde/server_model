@@ -3,22 +3,27 @@ classdef proc_config_load_store
     methods(Static)
 
         % --- LOAD MASK PARAMETERS FROM CSV ---
+        % This function is already generic and correct.
         function load_button(~)
-            % Ask user to select a CSV file
             [file, path] = uigetfile('*.csv', 'Select a Compute Load Profile');
-
-            % If the user selected a file, read it and set the parameters
             if ischar(file)
                 try
                     T = readtable(fullfile(path, file));
                     
-                    % Loop through each parameter in the table and update the mask
+                    % Get all available parameter names from the current block
+                    % This avoids errors if the CSV has extra parameters
+                    availableParams = get_param(gcb, 'MaskNames');
+                    
                     for i = 1:height(T)
                         paramName = T.Parameter{i};
                         paramValue = num2str(T.Value(i));
                         
-                        % set_param sets the value of a parameter on the current block ('gcb')
-                        set_param(gcb, paramName, paramValue);
+                        % Only set the parameter if it actually exists on this mask
+                        if any(strcmp(availableParams, paramName))
+                            set_param(gcb, paramName, paramValue);
+                        else
+                            warning('Skipping parameter "%s" as it does not exist on this mask.', paramName);
+                        end
                     end
                     
                     msgbox(['Parameters loaded from: ' file], 'Success');
@@ -33,22 +38,22 @@ classdef proc_config_load_store
 
 
         % --- SAVE MASK PARAMETERS TO CSV ---
+        % This is the NEW, GENERIC version that works for any mask
         function save_button(~)
-            % List of parameter names from your mask (UPDATED)
-            paramNames = {
-            'Tj_max';
-            'TDP';
-            'HD_cores';
-            'Max_freq';
-            'VCC_core';
-            'TEMP_case';
-            };
             
-            % Get current values from the mask
+            % Get all workspace variables from the current mask
+            % This returns a struct (e.g., s.Tj_max=95, s.TDP=350, etc.)
+            maskVars = get_param(gcb, 'MaskWSVariables');
+            
+            % Get the parameter names from the struct
+            % This will get 'F_cpu' on the CPU block and 'F_gpu' on the GPU block
+            paramNames = fieldnames(maskVars);
+            
+            % Get current values from the struct
             paramValues = cell(length(paramNames), 1);
             for i = 1:length(paramNames)
-                % get_param gets the value of a parameter from the current block ('gcb')
-                paramValues{i} = get_param(gcb, paramNames{i});
+                % Get the value corresponding to the parameter name
+                paramValues{i} = maskVars.(paramNames{i});
             end
             
             % Create a table to hold the data
